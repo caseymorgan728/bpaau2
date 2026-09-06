@@ -1,0 +1,38 @@
+# robots.txt for https://bpaau.org/
+# Best Pokies Australia (BPAAU) — allow all indexing
+
+User-agent: *
+Allow: /
+Disallow: /_worker.js
+Disallow: /*.json$
+# Repo/config artifacts served from the assets dir — no index value.
+Disallow: /README.md
+Disallow: /_headers
+Disallow: /user_nav.png
+# NOTE: legacy URLs migrated in redirects.json are deliberately NOT disallowed.
+# Googlebot must be able to crawl them to see the 301 and pass equity through.
+
+# Media-friendly bots. This group does NOT inherit the User-agent: * rules,
+# so the dev screenshot has to be excluded again here or it stays crawlable
+# for image search.
+User-agent: Googlebot-Image
+Allow: /assets/
+Allow: /banners%20home/
+Allow: /blog%20banner/
+Allow: /popout%20banner/
+Allow: /popout%20vertical/
+Allow: /logo%20app/
+Disallow: /user_nav.png
+
+# AI/preview crawlers — allow discovery
+User-agent: GPTBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+Sitemap: https://bpaau.org/sitemap.xml
+Host: https://bpaau.org

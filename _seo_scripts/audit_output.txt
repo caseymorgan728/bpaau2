@@ -1,0 +1,135 @@
+﻿Audited 46 HTML files
+CSS size: 21362 bytes (20.9 KB)
+Sitemap URLs: 44
+
+Issues: ERROR=6  WARN=19  INFO=3
+
+--- ERROR ---
+  [google6c4a857337176f53.html] meta_robots: missing
+  [google6c4a857337176f53.html] canonical: missing
+  [google6c4a857337176f53.html] title: missing
+  [google6c4a857337176f53.html] description: missing
+  [google6c4a857337176f53.html] h1: 0 h1 tags
+  [google6c4a857337176f53.html] viewport: missing
+
+--- WARN ---
+  [blog/fast-cashouts/index.html] wordcount: 660 words (<800)
+  [blog/promo-guides/index.html] wordcount: 554 words (<800)
+  [blog/winning-tips/index.html] wordcount: 592 words (<800)
+  [contact.html] wordcount: 279 words (<800)
+  [google6c4a857337176f53.html] og: missing og:title
+  [google6c4a857337176f53.html] og: missing og:description
+  [google6c4a857337176f53.html] og: missing og:type
+  [google6c4a857337176f53.html] og: missing og:url
+  [google6c4a857337176f53.html] og: missing og:image
+  [google6c4a857337176f53.html] twitter: missing twitter:card
+  [google6c4a857337176f53.html] lang: got None
+  [google6c4a857337176f53.html] skip_link: no skip-to-content
+  [google6c4a857337176f53.html] semantic: no <main>
+  [google6c4a857337176f53.html] semantic: no <footer>
+  [press.html] wordcount: 316 words (<800)
+  [privacy.html] wordcount: 314 words (<800)
+  [research.html] wordcount: 322 words (<800)
+  [terms.html] wordcount: 394 words (<800)
+  [theme.css] css_size: 21362 bytes > 20KB
+
+--- INFO ---
+  [404.html] desc_len: 120 chars
+  [contact.html] desc_len: 127 chars
+  [google6c4a857337176f53.html] semantic: no <header>
+
+--- Word counts (sorted asc) ---
+    279w  contact.html  <-- LOW
+    314w  privacy.html  <-- LOW
+    316w  press.html  <-- LOW
+    322w  research.html  <-- LOW
+    394w  terms.html  <-- LOW
+    554w  blog/promo-guides/index.html  <-- LOW
+    592w  blog/winning-tips/index.html  <-- LOW
+    660w  blog/fast-cashouts/index.html  <-- LOW
+    869w  blog/top-pokies/index.html
+    869w  responsible-gambling.html
+    873w  blog/bonus-guides/index.html
+   1070w  index.html
+   1143w  methodology.html
+   1206w  about.html
+   1599w  blog/index.html
+   1989w  hot-pokies-australia-2026-popular-slots.html
+   1995w  hold-and-win-pokies-australia-2026.html
+   1998w  same-day-pokies-withdrawals-australia.html
+   2000w  no-deposit-free-bonus-guide-australia-2026.html
+   2036w  biggest-casino-wins-australia-2026.html
+   2072w  daily-free-credits-au-returning-players.html
+   2077w  no-wagering-bonuses-australia-2026.html
+   2109w  cashback-bonus-pokies-australia-2026.html
+   2111w  fastest-withdrawal-casinos-australia-under-1-hour-2026.html
+   2116w  progressive-jackpot-pokies-australia-2026.html
+   2171w  best-bonus-types-australian-pokies-2026.html
+   2185w  curacao-casino-licence-check-australia-2026.html
+   2185w  how-to-play-online-pokies-beginners-australia-2026.html
+   2232w  how-to-read-casino-bonus-terms-australia-2026.html
+   2233w  vip-loyalty-programs-pokies-australia-2026.html
+   2237w  best-payment-methods-pokies-australia-2026.html
+   2238w  high-volatility-vs-high-rtp-free-spins.html
+   2250w  mobile-pokies-australia-2026.html
+   2314w  megawin33-review.html
+   2334w  nodepspin-review.html
+   2368w  online-pokies-legality-australia-2026.html
+   2372w  free-chips-australia-guide-2026.html
+   2392w  freecredit777-review.html
+   2484w  payid-cashouts-australia-2026.html
+   2529w  payid-withdraw-review.html
+   2597w  lockrespin-review.html
+   2632w  ausmegaways-review.html
+   2743w  bestrtp-review.html
+   3546w  best-high-rtp-pokies-australia-2026.html
+
+--- Title lengths ---
+    0c  google6c4a857337176f53.html: ''
+   32c  progressive-jackpot-pokies-australia-2026.html: 'Hold & Win Pokies Australia 2026'
+   35c  mobile-pokies-australia-2026.html: 'Best High RTP Pokies Australia 2026'
+   37c  best-payment-methods-pokies-australia-2026.html: 'Same-Day Pokies Withdrawals Australia'
+   37c  no-deposit-free-bonus-guide-australia-2026.html: 'No-Deposit Bonus Guide Australia 2026'
+   38c  how-to-read-casino-bonus-terms-australia-2026.html: 'How to Read Casino Bonus Terms AU 2026'
+   39c  terms.html: 'Terms of Service | BPAAU Best Pokies AU'
+   39c  vip-loyalty-programs-pokies-australia-2026.html: 'Best Bonus Types Australian Pokies 2026'
+   40c  about.html: 'About Us | BPAAU - Best Pokies Australia'
+   41c  ausmegaways-review.html: 'AusMegaways44 Review | Free Spins AU 2026'
+   41c  press.html: 'Press & Media Kit | Best Pokies Australia'
+   42c  nodepspin-review.html: 'NoDepSpin22 Review | 77 Free Spins AU 2026'
+   42c  same-day-pokies-withdrawals-australia.html: 'Same-Day Pokies Withdrawals Australia 2026'
+   43c  bestrtp-review.html: 'BestRTP44 Aus Review | High-RTP Pokies 2026'
+   43c  daily-free-credits-au-returning-players.html: 'Daily Free Credits AU 2026 | Reload Bonuses'
+   43c  high-volatility-vs-high-rtp-free-spins.html: 'High Volatility vs High RTP Free Spins 2026'
+   43c  payid-withdraw-review.html: 'PayIDWithdraw44 Review | Fast PayID AU 2026'
+   44c  404.html: 'Page Not Found | BPAAU Best Pokies Australia'
+   44c  free-chips-australia-guide-2026.html: 'Free Chips Australia 2026 | No-Deposit Guide'
+   44c  privacy.html: 'Privacy Policy | BPAAU Best Pokies Australia'
+   45c  hot-pokies-australia-2026-popular-slots.html: 'Hot Pokies Australia 2026 | Most Played Slots'
+   45c  research.html: 'Research & Data | Pokies Industry Research AU'
+   45c  responsible-gambling.html: 'Responsible Gambling | Help & Support AU 2026'
+   46c  methodology.html: 'Testing Methodology | How We Test Pokies Sites'
+   47c  freecredit777-review.html: 'FreeCredit777 Aus Review | Daily Reload Credits'
+   48c  best-high-rtp-pokies-australia-2026.html: 'Best High-RTP Pokies Australia 2026 | 96%+ Slots'
+   49c  blog/bonus-guides/index.html: 'Bonus Guides | Free Chips & Wagering Tips | BPAAU'
+   49c  fastest-withdrawal-casinos-australia-under-1-hour-2026.html: 'Fastest Withdrawal Casinos Australia Under 1 Hour'
+   49c  hold-and-win-pokies-australia-2026.html: 'Hold & Win Pokies Australia 2026 | RTP & Strategy'
+   49c  payid-cashouts-australia-2026.html: 'PayID Cashouts Australia 2026 | Real Times Tested'
+   51c  best-bonus-types-australian-pokies-2026.html: 'Best Bonus Types Aussie Pokies 2026 | Chips & Spins'
+   52c  no-wagering-bonuses-australia-2026.html: 'No Wagering Bonus Australia 2026 | Keep What You Win'
+   53c  biggest-casino-wins-australia-2026.html: 'Biggest Casino Wins Australia 2026 | Verified Payouts'
+   54c  blog/winning-tips/index.html: 'Winning Tips | Pokies Strategy, RTP & Bankroll | BPAAU'
+   54c  cashback-bonus-pokies-australia-2026.html: 'Cashback Bonus Pokies Australia 2026 | Loss Back Guide'
+   54c  index.html: 'Best Pokies Australia 2026 | Free Bonus & Fast Payouts'
+   55c  blog/top-pokies/index.html: 'Top Pokies | RTP, Megaways & Hold & Win Reviews | BPAAU'
+   55c  lockrespin-review.html: 'Hold & Win Pokies Australia 2026 | LockRespin88 | BPAAU'
+   57c  contact.html: 'Contact Us | BPAAU - Get in Touch With Our Editorial Team'
+   57c  how-to-play-online-pokies-beginners-australia-2026.html: 'How to Play Online Pokies Australia 2026 | Beginner Guide'
+   58c  blog/fast-cashouts/index.html: 'Fast Cashouts | PayID & Same-Day Pokie Withdrawals | BPAAU'
+   58c  curacao-casino-licence-check-australia-2026.html: 'Curacao Casino Licence Check Australia 2026 | Verify Guide'
+   58c  megawin33-review.html: 'High-Volatility Big-Win Pokies 2026 | MegaWin33 AU | BPAAU'
+   59c  blog/index.html: 'BPAAU Blog — Australian Pokies Guides, Bonuses & PayID Tips'
+   59c  blog/promo-guides/index.html: 'Promo Guides | Biggest Wins, VIP & Loyalty Programs | BPAAU'
+   59c  online-pokies-legality-australia-2026.html: 'Are Online Pokies Legal in Australia 2026? | IGA 2001 Guide'
+
+Wrote C:\Users\User\Documents\GitHub\Australia igaming website\_seo_scripts\audit_results.json

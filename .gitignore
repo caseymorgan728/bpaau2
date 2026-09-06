@@ -1,0 +1,25 @@
+# OS / editor
+.DS_Store
+Thumbs.db
+DumpStack.log
+inetpub/
+*.log
+*.tmp
+*.bak
+
+# Generator artifacts (not needed for the deployed site)
+*.json
+!package.json
+!package-lock.json
+# Runtime config — imported by _worker.js at build time, MUST be committed
+# or the worker bundle fails to build.
+!redirects.json
+
+# node / build (safety — none used here)
+node_modules/
+dist/
+build/
+.cache/
+
+# Backups from tooling
+*_backup_*/
