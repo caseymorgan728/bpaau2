@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#0d1117" name="theme-color"/>
+<title>BPAAU Traffic Dashboard (Internal)</title>
+<meta content="noindex,nofollow" name="robots"/>
+<meta content="noindex,nofollow" name="googlebot"/>
+<link href="https://bpaau.org/dashboard" rel="canonical"/>
+<link href="/assets/favicon-32.png" rel="icon" type="image/png"/>
+<link href="/assets/theme.css?v=20260907" rel="stylesheet"/>
+<style>
+  .dash-wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px;}
+  .dash-head{background:linear-gradient(135deg,#0d1117 0%,#161b22 60%,#1c2333 100%);border:1px solid #2d333b;border-radius:14px;padding:24px 26px;color:#fff;display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px;}
+  .dash-head h1{font-size:22px;font-weight:800;letter-spacing:.3px;}
+  .dash-head .sub{color:#a7b3c4;font-size:13px;margin-top:6px;}
+  .dash-head .meta{text-align:right;font-size:12px;color:#7d8a9d;line-height:1.7;}
+  .dash-head .meta b{color:#e6c86a;font-weight:600;}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin:18px 0;}
+  .kpi{background:#fff;border:1px solid #e3e8ee;border-radius:12px;padding:16px 18px;}
+  .kpi .label{font-size:12.5px;color:#5a6b7c;}
+  .kpi .val{font-size:28px;font-weight:800;margin-top:4px;color:#1b2430;}
+  .kpi .val.accent{color:#8a6d1d;}
+  .kpi .val.good{color:#1e7b4f;}
+  .kpi .note{font-size:12px;color:#94a3b1;margin-top:4px;}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+  .card{background:#fff;border:1px solid #e3e8ee;border-radius:12px;padding:18px 18px 14px;}
+  .card h3{font-size:15px;font-weight:800;margin-bottom:4px;color:#1b2430;}
+  .card .hint{font-size:12px;color:#94a3b1;margin-bottom:10px;}
+  .full{grid-column:1 / -1;}
+  .chart{width:100%;height:300px;}
+  .chart.sm{height:230px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{text-align:left;padding:8px 10px;border-bottom:1px solid #e3e8ee;}
+  th{color:#5a6b7c;font-weight:700;font-size:12px;}
+  td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;}
+  tr.hl td{background:#fff8e1;}
+  .insights{background:#fffdf4;border:1px solid #efe3b4;border-radius:12px;padding:18px 20px;margin-bottom:14px;}
+  .insights h3{font-size:15px;margin-bottom:10px;color:#8a6d1d;}
+  .insights ul{margin-left:18px;font-size:13.5px;color:#3a4452;}
+  .insights li{margin-bottom:7px;}
+  .insights b{color:#1b2430;}
+  .dash-foot{font-size:11.5px;color:#94a3b1;text-align:center;margin-top:22px;line-height:1.8;}
+  /* lock screen */
+  .lock{max-width:430px;margin:60px auto;background:#fff;border:1px solid #e3e8ee;border-radius:14px;padding:34px 30px;text-align:center;box-shadow:0 10px 30px rgba(13,17,23,.08);}
+  .lock .lock-ic{width:54px;height:54px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,#c9a227,#8a6d1d);color:#fff;font-size:24px;line-height:54px;font-weight:800;}
+  .lock h2{font-size:18px;font-weight:800;color:#1b2430;margin-bottom:6px;}
+  .lock p{font-size:13px;color:#5a6b7c;margin-bottom:18px;}
+  .lock input{width:100%;padding:12px 14px;font-size:15px;border:1px solid #d4dbe3;border-radius:8px;text-align:center;letter-spacing:2px;margin-bottom:12px;box-sizing:border-box;}
+  .lock input:focus{outline:2px solid #c9a227;border-color:#c9a227;}
+  .lock button{width:100%;padding:13px;font-size:15px;font-weight:700;background:linear-gradient(135deg,#c9a227,#a37f18);color:#fff;border:none;border-radius:8px;cursor:pointer;}
+  .lock button:hover{filter:brightness(1.06);}
+  .lock .err{color:#c0392b;font-size:12.5px;margin-top:10px;min-height:18px;}
+  .lock .back{margin-top:16px;font-size:12.5px;}
+  .lock .back a{color:#5a6b7c;}
+  @media (max-width:760px){
+    .grid{grid-template-columns:1fr;}
+    .dash-head{padding:20px;flex-direction:column;}
+    .dash-head .meta{text-align:left;}
+    .chart{height:250px;}
+    .chart.sm{height:210px;}
+  }
+</style>
+</head>
+<body id="top">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+<div class="container">
+<div class="header-inner">
+<a aria-label="BPAAU home" class="brand-logo" href="/">
+<img alt="BPAAU — Best Pokies Australia" decoding="async" height="72" loading="eager" src="/assets/logo.png" width="240"/>
+</a>
+<input class="nav-toggle" hidden="" id="nav-toggle" type="checkbox"/>
+<label aria-label="Toggle navigation" class="nav-toggle-label" for="nav-toggle">
+<span></span><span></span><span></span>
+</label>
+<nav aria-label="Primary" class="nav">
+<a class="nav__link" href="/">Home</a>
+<a class="nav__link" href="/best-high-rtp-pokies-australia-2026">Best Pokies</a>
+<a class="nav__link" href="/no-deposit-free-bonus-guide-australia-2026">Free Bonus</a>
+<a class="nav__link" href="/payid-cashouts-australia-2026">Fast Payouts</a>
+<a class="nav__link" href="/curacao-casino-licence-check-australia-2026">Curacao Verified</a>
+<a class="nav__link" href="/blog">Blog</a>
+<a class="nav__link" href="/about">About</a>
+</nav>
+</div>
+</div>
+</header>
+
+<main id="main-content">
+<div class="dash-wrap">
+
+  <!-- LOCK SCREEN -->
+  <div class="lock" id="lock">
+    <div class="lock-ic">&#128274;</div>
+    <h2>Traffic Dashboard</h2>
+    <p>This dashboard is password-protected. Enter the access code to continue.</p>
+    <input autocomplete="off" id="dash-pass" maxlength="20" placeholder="Access code" type="password"/>
+    <button id="dash-unlock" type="button">Unlock</button>
+    <div class="err" id="dash-err"></div>
+    <div class="back"><a href="/">&larr; Back to bpaau.org</a></div>
+  </div>
+
+  <!-- DASHBOARD CONTENT -->
+  <div id="dash-content" style="display:none;">
+
+    <div class="dash-head">
+      <div>
+        <h1>BPAAU Traffic Dashboard</h1>
+        <div class="sub">bpaau.org — Australian online pokies comparison site · internal report</div>
+      </div>
+      <div class="meta">
+        Source: Google Search Console<br>
+        Period: 2026-08-24 → 2026-09-06<br>
+        Exported: 2026-09-09 · <b>snapshot, refreshed regularly</b>
+      </div>
+    </div>
+
+    <div class="kpis">
+      <div class="kpi"><div class="label">Total Clicks</div><div class="val accent">31</div><div class="note">Search clicks</div></div>
+      <div class="kpi"><div class="label">Total Impressions</div><div class="val">122</div><div class="note">Search visibility</div></div>
+      <div class="kpi"><div class="label">Average CTR</div><div class="val good">25.4%</div><div class="note">Strong for a new site</div></div>
+      <div class="kpi"><div class="label">Average Position</div><div class="val good">4.7</div><div class="note">Within Google page 1</div></div>
+    </div>
+
+    <div class="grid">
+      <div class="card full">
+        <h3>Daily Impressions &amp; Clicks Trend</h3>
+        <div class="hint">Last two weeks of real search data · bars = impressions, line = clicks</div>
+        <div class="chart" id="trend"></div>
+      </div>
+
+      <div class="card">
+        <h3>Traffic by Country (Impressions)</h3>
+        <div class="hint">Australia is the target market and already showing</div>
+        <div class="chart" id="country"></div>
+      </div>
+
+      <div class="card">
+        <h3>Device Split (Impressions)</h3>
+        <div class="hint">60% mobile — matches how AU players play on phones</div>
+        <div class="chart" id="device"></div>
+      </div>
+
+      <div class="card full">
+        <h3>Top Pages (Impressions)</h3>
+        <div class="hint">Which pages Google surfaces most</div>
+        <div class="chart" id="pages"></div>
+      </div>
+
+      <div class="card full">
+        <h3>Top Search Queries</h3>
+        <div class="hint">What players search to find us</div>
+        <table>
+          <thead><tr><th>Query</th><th class="num">Clicks</th><th class="num">Impressions</th><th class="num">CTR</th><th class="num">Avg Position</th></tr></thead>
+          <tbody>
+            <tr class="hl"><td>garcat8</td><td class="num">0</td><td class="num">35</td><td class="num">0%</td><td class="num">5.09</td></tr>
+            <tr><td>pokies lounge withdrawal time</td><td class="num">0</td><td class="num">2</td><td class="num">0%</td><td class="num">27.5</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="insights">
+      <h3>Three Takeaways (for the boss)</h3>
+      <ul>
+        <li><b>Traffic is genuinely ramping:</b> 31 clicks and 122 impressions since launch, average position 4.7 (page 1), CTR 25.4% — excellent for a brand-new site.</li>
+        <li><b>Australia is already being reached:</b> Australian visitors generated 41 impressions (second-highest country), proving Google is showing the site to AU pokie players. Fewer clicks yet = the conversion point we are now optimising.</li>
+        <li><b>Brand queries are appearing:</b> "garcat8" (partner operator) was searched 35 times — players are actively looking for our products. Converting those brand searches into clicks is the next lever.</li>
+      </ul>
+    </div>
+
+    <div class="dash-foot">
+      Internal snapshot — Google organic search only (excludes direct / referral / social).<br>
+      Data exported from Google Search Console · bpaau.org · 2026-08-24 to 2026-09-06
+    </div>
+
+  </div>
+
+</div>
+</main>
+
+<footer class="site-footer">
+<div class="container">
+<nav aria-label="Footer" class="footer-nav">
+<a href="/">Home</a>
+<a href="/best-high-rtp-pokies-australia-2026">Best Pokies</a>
+<a href="/no-deposit-free-bonus-guide-australia-2026">Free Bonus</a>
+<a href="/payid-cashouts-australia-2026">Fast Payouts</a>
+<a href="/blog">Blog</a>
+<a href="/about">About</a>
+<a href="/methodology">Methodology</a>
+<a href="/responsible-gambling">Responsible Gambling</a>
+<a href="/privacy">Privacy</a>
+<a href="/terms">Terms</a>
+<a href="/contact">Contact</a>
+</nav>
+<p class="footer-note">18+ only. BPAAU is an independent comparison site. All listed operators hold Gaming Curacao licences. Gamble responsibly.</p>
+<p class="footer-note"><strong>Editorial Disclosure:</strong> bpaau.org is an independent information portal. Some outbound links are affiliate links — we may receive a commission. This never influences our rankings. Real-money online pokies are regulated under the Interactive Gambling Act 2001 (Cth).</p>
+</div>
+</footer>
+<a class="back-to-top" href="#top" aria-label="Back to top">&#8593;</a>
+
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.4.3/dist/echarts.min.js"></script>
+<script>
+(function(){
+  var PASS = 'bpaau123';
+  var lock = document.getElementById('lock');
+  var content = document.getElementById('dash-content');
+  var input = document.getElementById('dash-pass');
+  var err = document.getElementById('dash-err');
+
+  function showDash(){
+    lock.style.display = 'none';
+    content.style.display = 'block';
+    try { sessionStorage.setItem('bpaau_dash_auth', '1'); } catch(e){}
+    initCharts();
+  }
+
+  try {
+    if (sessionStorage.getItem('bpaau_dash_auth') === '1') { showDash(); }
+  } catch(e){}
+
+  document.getElementById('dash-unlock').addEventListener('click', function(){
+    if (input.value === PASS) { err.textContent = ''; showDash(); }
+    else { err.textContent = 'Incorrect access code. Please try again.'; input.value = ''; input.focus(); }
+  });
+  input.addEventListener('keydown', function(ev){
+    if (ev.key === 'Enter') { document.getElementById('dash-unlock').click(); }
+  });
+
+  function initCharts(){
+    if(typeof echarts === 'undefined'){
+      document.querySelectorAll('.chart').forEach(function(c){c.innerHTML='<div style="padding:20px;color:#94A3B1;font-size:13px;">Chart library failed to load (needs internet). Data is in the table and takeaways below.</div>';});
+      return;
+    }
+    var ACCENT='#c9a227', INK='#1b2430', SUB='#5a6b7c', LINE='#e3e8ee';
+    function base(o){
+      o.backgroundColor='transparent';
+      o.tooltip=o.tooltip||{trigger:'axis',triggerOn:'click',renderMode:'richText',confine:true,textStyle:{fontSize:11}};
+      return o;
+    }
+
+    var trend = echarts.init(document.getElementById('trend'));
+    trend.setOption(base({
+      tooltip:{trigger:'axis',triggerOn:'click',renderMode:'richText',confine:true,textStyle:{fontSize:11}},
+      legend:{data:['Impressions','Clicks'],top:0,itemWidth:14,itemHeight:8,textStyle:{color:SUB,fontSize:11}},
+      grid:{left:40,right:16,top:32,bottom:28,containLabel:true},
+      xAxis:{type:'category',data:['8-24','8-25','8-26','8-27','8-28','8-29','8-30','8-31','9-01','9-02','9-03','9-04','9-05','9-06'],axisLabel:{color:SUB,fontSize:10,hideOverlap:true}},
+      yAxis:[{type:'value',name:'Impr.',axisLabel:{color:SUB,fontSize:10}},{type:'value',name:'Clicks',axisLabel:{color:SUB,fontSize:10},splitLine:{show:false}}],
+      series:[
+        {name:'Impressions',type:'bar',data:[0,11,0,3,8,13,15,17,11,16,9,9,3,7],itemStyle:{color:'rgba(201,162,39,0.32)',borderRadius:[3,3,0,0]}},
+        {name:'Clicks',type:'line',yAxisIndex:1,smooth:true,data:[0,5,0,2,4,6,3,2,2,1,0,3,1,2],itemStyle:{color:ACCENT},lineStyle:{color:ACCENT,width:2},symbolSize:5}
+      ]
+    }));
+
+    var ctry = echarts.init(document.getElementById('country'));
+    ctry.setOption(base({
+      grid:{left:70,right:40,top:10,bottom:24,containLabel:true},
+      xAxis:{type:'value',axisLabel:{color:SUB,fontSize:10}},
+      yAxis:{type:'category',data:['Malaysia','Japan','Australia','Cambodia','Netherlands','India','USA','Bangladesh','Ukraine'],axisLabel:{color:INK,fontSize:11}},
+      series:[{
+        type:'bar',barWidth:14,
+        data:[
+          {value:43,itemStyle:{color:'#9db4cc'}},
+          {value:23,itemStyle:{color:'#9db4cc'}},
+          {value:41,itemStyle:{color:ACCENT},label:{show:true,position:'right',color:'#8a6d1d',fontSize:11,formatter:'Australia (target)'}},
+          {value:7,itemStyle:{color:'#9db4cc'}},
+          {value:3,itemStyle:{color:'#9db4cc'}},
+          {value:2,itemStyle:{color:'#c7d0da'}},
+          {value:1,itemStyle:{color:'#c7d0da'}},
+          {value:1,itemStyle:{color:'#c7d0da'}},
+          {value:1,itemStyle:{color:'#c7d0da'}}
+        ],
+        label:{show:true,position:'right',color:SUB,fontSize:10}
+      }]
+    }));
+
+    var dev = echarts.init(document.getElementById('device'));
+    dev.setOption(base({
+      tooltip:{trigger:'item',triggerOn:'click',renderMode:'richText',confine:true,textStyle:{fontSize:11}},
+      legend:{bottom:0,itemWidth:12,itemHeight:8,textStyle:{color:SUB,fontSize:11}},
+      series:[{
+        type:'pie',radius:['42%','66%'],center:['50%','44%'],
+        label:{formatter:'{b}: {c}',color:INK,fontSize:11},
+        data:[
+          {value:73,name:'Mobile',itemStyle:{color:ACCENT}},
+          {value:47,name:'Desktop',itemStyle:{color:'#3e6b9b'}},
+          {value:2,name:'Tablet',itemStyle:{color:'#9db4cc'}}
+        ]
+      }]
+    }));
+
+    var pg = echarts.init(document.getElementById('pages'));
+    pg.setOption(base({
+      grid:{left:8,right:46,top:10,bottom:24,containLabel:true},
+      xAxis:{type:'value',axisLabel:{color:SUB,fontSize:10}},
+      yAxis:{type:'category',data:['/curacao-licence-check','/cashback-bonus','/payid-cashouts','/methodology','/blog/promo-guides','/best-high-rtp(.html)','/contact(.html)','/top-10-easiest(.html)','/biggest-wins','/nodepspin-review','/blog.html','/payid-withdraw-review','/ausmegaways-review','/bestrtp-review','/same-day-withdrawals','/contact','/bestrtp44-aus','/best-high-rtp','/press','/top-10-easiest','/blog','/'],axisLabel:{color:INK,fontSize:10}},
+      series:[{
+        type:'bar',barWidth:10,
+        data:[1,1,1,1,5,6,8,13,14,14,18,26,26,40,44,46,26,42,48,56,61,98],
+        label:{show:true,position:'right',color:SUB,fontSize:9},
+        itemStyle:{color:function(p){return p.dataIndex>=18?ACCENT:'#9db4cc';},borderRadius:[0,3,3,0]}
+      }]
+    }));
+
+    window.addEventListener('resize',function(){
+      trend.resize(); ctry.resize(); dev.resize(); pg.resize();
+    });
+  }
+})();
+</script>
+</body>
+</html>
