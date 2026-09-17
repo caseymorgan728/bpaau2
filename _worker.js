@@ -51,6 +51,11 @@ export default {
     if (path.endsWith(".html")) {
       let clean = path.slice(0, -5); // strip ".html"
       if (clean === "/index") clean = "/";
+      const mapped = REDIRECT_MAP[clean];
+      if (mapped) {
+        url.pathname = mapped;
+        return Response.redirect(url.toString(), 301);
+      }
       url.pathname = clean;
       return Response.redirect(url.toString(), 301);
     }
