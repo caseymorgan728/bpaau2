@@ -1,0 +1,290 @@
+# -*- coding: utf-8 -*-
+"""Build the no-deposit bonus codes aggregation hub for bpaau.org (AU keyword page)."""
+import os, json
+
+PUB = r"C:\Users\User\Documents\GitHub\bpaau2\public"
+
+def _j(s):
+    return json.dumps(s, ensure_ascii=False)
+
+def head(slug, title, desc, breadcrumb, faq, date_pub="2026-09-22", date_mod="2026-09-22"):
+    faq_json = ",".join(
+        '{"@type":"Question","name":%s,"acceptedAnswer":{"@type":"Answer","text":%s}}'
+        % (_j(q), _j(a)) for q, a in faq)
+    crumbs = ",".join(
+        '{"@type":"ListItem","position":%d,"name":%s,"item":%s}'
+        % (i + 1, _j(n), _j(u)) for i, (n, u) in enumerate(breadcrumb))
+    return '''<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
+<meta content="#0d1117" name="theme-color"/>
+<title>%s</title>
+<meta content="%s" name="description"/>
+<meta content="index,follow,max-image-preview:large" name="robots"/>
+<link href="https://bpaau.org/%s" rel="canonical"/>
+<link href="/assets/favicon-32.png" rel="icon" type="image/png"/>
+<link href="/assets/apple-touch-icon.png" rel="apple-touch-icon"/>
+<link href="/site.webmanifest" rel="manifest"/>
+<link href="/assets/theme.css?v=20260921" rel="stylesheet"/>
+<meta content="BPAAU" property="og:site_name"/>
+<meta content="%s" property="og:title"/>
+<meta content="%s" property="og:description"/>
+<meta content="article" property="og:type"/>
+<meta content="https://bpaau.org/%s" property="og:url"/>
+<meta content="https://bpaau.org/assets/hero/main-hero.webp" property="og:image"/>
+<meta content="en_AU" property="og:locale"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="%s" name="twitter:title"/>
+<meta content="%s" name="twitter:description"/>
+<meta content="https://bpaau.org/assets/hero/main-hero.webp" name="twitter:image"/>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"BPAAU","url":"https://bpaau.org/","inLanguage":"en-AU"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Organization","name":"BPAAU","alternateName":"Best Pokies Australia","url":"https://bpaau.org/","logo":"https://bpaau.org/assets/logo.png","sameAs":["https://bpaau.com"]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[%s]}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":%s,"datePublished":"%s","dateModified":"%s","author":{"@type":"Person","name":"Daniel Hart","url":"https://bpaau.org/about#daniel-hart"},"publisher":{"@type":"Organization","name":"Best Pokies Australia","logo":{"@type":"ImageObject","url":"https://bpaau.org/assets/logo.png","width":192,"height":192}},"mainEntityOfPage":"https://bpaau.org/%s"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[%s]}</script>
+</head>
+''' % (title, desc, slug, title, desc, slug, title, desc, crumbs, _j(title), date_pub, date_mod, slug, faq_json)
+
+RG_BANNER = '''<body id="top">
+<a class="skip-link" href="#main-content">Skip to content</a>
+<header class="site-header">
+<div class="container">
+<div class="header-inner">
+<a aria-label="BPAAU home" class="brand-logo" href="/">
+<img alt="BPAAU — Best Pokies Australia" decoding="async" height="72" loading="eager" src="/assets/logo.png" width="240"/>
+</a>
+<input class="nav-toggle" hidden="" id="nav-toggle" type="checkbox"/>
+<label aria-label="Toggle navigation" class="nav-toggle-label" for="nav-toggle">
+<span></span><span></span><span></span>
+</label>
+<nav aria-label="Primary" class="nav">
+<a class="nav__link" href="/">Home</a>
+<a class="nav__link" href="/best-high-rtp-pokies-australia-2026">Best Pokies</a>
+<a class="nav__link%s" href="/no-deposit-free-bonus-guide-australia-2026">Free Bonus</a>
+<a class="nav__link%s" href="/payid-cashouts-australia-2026">Fast Payouts</a>
+<a class="nav__link" href="/curacao-casino-licence-check-australia-2026">Curacao Verified</a>
+<a class="nav__link" href="/blog">Blog</a>
+<a class="nav__link" href="/about">About</a>
+</nav>
+<label aria-hidden="true" class="nav-backdrop" for="nav-toggle"></label>
+</div>
+</div>
+</header>
+<main id="main-content">
+<div class="container">
+<aside class="rg-banner" role="note">
+<strong>18+ Only.</strong> Gambling is addictive. Gamble responsibly. Free 24/7 support:
+        <a href="tel:1800858858">1800 858 858</a> ·
+        <a href="https://www.gamblinghelponline.org.au" rel="noopener" target="_blank">gamblinghelponline.org.au</a> ·
+        <a href="https://www.betstop.gov.au" rel="noopener" target="_blank">BetStop</a>
+</aside>
+'''
+
+FOOTER = '''<footer class="site-footer">
+<div class="container">
+<nav aria-label="Footer" class="footer-nav">
+<a href="/">Home</a>
+<a href="/best-high-rtp-pokies-australia-2026">Best Pokies</a>
+<a href="/no-deposit-free-bonus-guide-australia-2026">Free Bonus</a>
+<a href="/payid-cashouts-australia-2026">Fast Payouts</a>
+<a href="/blog">Blog</a>
+<a href="/about">About</a>
+<a href="/methodology">Methodology</a>
+<a href="/responsible-gambling">Responsible Gambling</a>
+<a href="/privacy">Privacy</a>
+<a href="/terms">Terms</a>
+<a href="/contact">Contact</a>
+</nav>
+<p class="footer-note">18+ only. BPAAU is an independent comparison site. All listed operators hold Gaming Curacao licences. Gamble responsibly.</p>
+<p class="footer-note"><strong>Editorial Disclosure:</strong> bpaau.org is an independent information portal. Some outbound links are affiliate links — we may receive a commission. This never influences our rankings. Real-money online pokies are regulated under the Interactive Gambling Act 2001 (Cth).</p>
+</div>
+</footer>
+<a class="back-to-top" href="#top" aria-label="Back to top">&#8593;</a>
+<div class="mobile-cta"><a class="btn btn--primary btn--block" href="https://1xaud.com/register" rel="sponsored nofollow noopener" target="_blank">Claim Free $199 Bonus</a></div>
+</body>
+</html>
+'''
+
+def faq_section(faq):
+    out = ['<section class="section">',
+           '<div class="section-title"><span class="section-title__label">FAQ</span><h2>No-Deposit Bonus Codes: Frequently Asked Questions</h2></div>']
+    for q, a in faq:
+        out.append('<details class="faq"><summary>%s</summary><div class="faq__body">%s</div></details>' % (q, a))
+    out.append('</section>')
+    return "\n".join(out)
+
+def related(cards):
+    out = ['<section class="section">',
+           '<div class="section-title"><span class="section-title__label">Keep reading</span><h2>Related guides</h2></div>',
+           '<div class="blog-card-grid">']
+    for href, tag, title, excerpt, img, w, h, date, mins in cards:
+        out.append('''<a class="blog-card" href="%s">
+<div class="card__media"><img alt="%s" decoding="async" height="%s" loading="lazy" src="%s" width="%s"/></div>
+<div class="blog-card__body">
+<span class="card__tag">%s</span>
+<h3>%s</h3>
+<p class="card__excerpt">%s</p>
+<p class="blog-card__meta">%s · %s min read · Read the guide &rarr;</p>
+</div>
+</a>''' % (href, title, h, img, w, tag, title, excerpt, date, mins))
+    out.append('</div></section></div></main>')
+    return "\n".join(out)
+
+def hero(breadcrumb_html, h1, lede, mission):
+    return '''<section class="page-hero">
+<p class="breadcrumb">%s</p>
+<h1>%s</h1>
+<div class="author-box">
+<span aria-hidden="true" class="author-box__avatar">DH</span>
+<div>
+<p class="author-box__name">Daniel Hart</p>
+<p class="author-box__role">Senior Pokies Reviewer &amp; iGaming Editor</p>
+<p class="author-box__meta">Reviewed by Sarah Chen · Last updated 22 September 2026 · 18+</p>
+</div>
+</div>
+<p class="lede">%s</p>
+<div class="mission-box"><p><strong>&#10148; Updated for 2026:</strong> %s <a href="/methodology">See how we test</a>.</p></div>
+</section>''' % (breadcrumb_html, h1, lede, mission)
+
+# ================= PAGE: NO DEPOSIT BONUS CODES AUSTRALIA =================
+slug = "no-deposit-bonus-codes-australia-2026"
+title = "No Deposit Bonus Codes Australia 2026: Free Pokies Coupons"
+desc = ("No deposit bonus codes Australia 2026: how free pokies coupon codes actually work, why most "
+        "expire, the wagering and max-cashout rules, and verified sign-up free credit up to $199 — no code needed.")
+bc = [("Home","https://bpaau.org/"),("Bonus Guides","https://bpaau.org/blog/bonus-guides"),
+      ("No Deposit Bonus Codes","https://bpaau.org/"+slug)]
+
+faq = [
+("What is a no-deposit bonus code in Australia?",
+ "A no-deposit bonus code is a short coupon — usually a brand word followed by letters or digits — that you enter during registration or in the casino cashier to unlock free pokies credit or free spins without making a deposit. It is simply the trigger for the bonus; the credit still lands in a bonus wallet, not your cash balance, and winnings only become withdrawable after you complete the wagering requirement, respect the max-cashout cap and finish identity verification. 18+ T&amp;Cs apply."),
+("Do the Australian pokies operators reviewed on BPAAU require a bonus code?",
+ "No. The six Gaming Curacao licensed operators reviewed here do not use a coupon code for their headline sign-up offers. You register with an Australian mobile number, verify it by SMS OTP, and the free credit is either added automatically or claimed with one tap in the promotions tab. This auto-credit model is deliberately code-free, which removes the single most common complaint players have with coupons — typing an expired or mistyped code and receiving nothing."),
+("Where do I enter a no-deposit bonus code when one is required?",
+ "Depending on the operator, a code field appears in one of four places: the registration form itself, the deposit/cashier screen, the promotions tab (an 'enter code' or 'redeem coupon' box), or it is supplied by 24/7 live chat after you register. Enter it exactly as advertised, with no spaces, before you make any deposit. If the brand uses automatic credit there is nothing to enter — just verify your mobile number and check the bonus balance."),
+("Why is my no-deposit bonus code not working?",
+ "The usual reasons, in order, are: the code has expired (most free coupons are valid for days or weeks); it is restricted to a country other than Australia; it was mistyped or had a trailing space; the email, mobile number or device has already claimed it (one per player/household/IP); it is actually a deposit-match code rather than a no-deposit code; or it only works after a first deposit. A code that repeatedly fails on a site with no verifiable licence is a common bait used by scam casinos."),
+("Are free no-deposit bonus codes genuinely free money?",
+ "They are free to claim — no deposit and no card details are required — but they are not free, withdrawable cash. The credit is governed by a wagering (playthrough) requirement, almost always a maximum cashout cap on a no-deposit offer, an expiry window and an eligible-games list. Treat the coupon as a risk-free trial stake that can occasionally convert into a small, genuinely withdrawable win, not as income."),
+("Can I use more than one no-deposit code?",
+ "You can only ever use one no-deposit offer per casino — creating duplicate accounts to claim it again is bonus abuse and leads to confiscated balances and a closed account. What you legitimately can do is claim the welcome no-deposit offer once at each of several separately licensed casinos, which is exactly why comparing the verified operators below is useful. Always use your real legal name and your own PayID details at every site."),
+("What is the difference between a bonus code and an automatic no-deposit bonus?",
+ "Only the trigger. A code requires you to type a coupon to release the credit; an automatic offer releases the same kind of bonus wallet after registration and mobile OTP with no code. The wagering, max-cashout, expiry and KYC rules are identical in substance. Automatic offers are generally more reliable for Australian players because there is no coupon to expire or mistype."),
+("How do I withdraw winnings from a no-deposit code in Australia?",
+ "Finish the wagering within the expiry window on eligible pokies, complete KYC (government photo ID plus proof of address), and request a withdrawal to a PayID bank account held in your own name. The fastest Australian-facing operators settle PayID payouts in minutes to a few hours once their finance team approves the cashout; no-deposit payouts are limited to the max-cashout cap, and a few brands require one small verifying deposit before a first withdrawal."),
+("Are no-deposit bonus codes legal and safe for Australian players?",
+ "Australian law (the Interactive Gambling Act 2001) restricts operators from offering real-money interactive gambling to people in Australia and ACMA blocks offending sites, but it does not prosecute individual players. Safety therefore comes down to the operator: only use sites with a verifiable Gaming Curacao licence, published bonus terms and secure PayID banking. You can confirm any licence using our Curacao licence check guide, and you should avoid unlicensed 'free code' pages that promise uncapped, zero-verification payouts."),
+]
+
+body = RG_BANNER % (" is-active", "")
+body += hero('<a href="/">Home</a> &raquo; <a href="/blog/bonus-guides">Bonus Guides</a> &raquo; <span>No Deposit Bonus Codes</span>',
+ "No Deposit Bonus Codes in Australia (2026) &mdash; Free Pokies Coupons That Actually Credit",
+ "A no-deposit bonus code promises free pokies credit the moment you register &mdash; no deposit, no card. The reality in 2026 is that most coupons advertised across the web are expired, region-locked or attached to brutal wagering. This guide explains exactly how free pokies codes work, the five terms that decide whether you can keep a payout, why the verified Australian-facing operators below mostly skip codes altogether and credit you automatically after mobile verification, and how to cash out real winnings through PayID.",
+ "We checked the claim mechanism, advertised sign-up credit and PayID payout terms at all six reviewed operators and compared them against the standard coupon model used across the Australian market, so you can tell a working offer from a dead code.")
+
+body += '''<section class="section">
+<div class="section-title"><span class="section-title__label">The verified list</span><h2>Verified Australian No-Deposit Sign-Up Offers (2026)</h2></div>
+<p>The table below lists the registration free-credit offers on the six Gaming Curacao licensed operators reviewed on BPAAU, checked 22 September 2026. The important column is <strong>Bonus code</strong>: for these brands it reads &ldquo;none&rdquo;, because the credit is released automatically after SMS verification or with a single tap in the promotions tab &mdash; there is no coupon to lose or mistype. Follow each operator name for its full offer breakdown and exact claim steps. Confirm current terms on the registration page before you claim; 18+ T&amp;Cs apply.</p>
+<div class="table-wrap">
+<table class="score-table">
+<thead><tr><th>Operator</th><th>No-deposit sign-up offer</th><th>Bonus code</th><th>How it credits</th><th>Playthrough</th><th>Payout</th></tr></thead>
+<tbody>
+<tr><td><a href="/toystory9-199-free-credit-sign-up-australia-2026">TOY STORY 9</a></td><td>$199 free credit sign-up + Lucky Wheel up to $999</td><td>None &mdash; OTP auto</td><td>After mobile OTP verification</td><td>Per promotion T&amp;Cs</td><td>PayID</td></tr>
+<tr><td><a href="/1xaud-188-free-credit-no-deposit-australia-2026">1XAUD</a></td><td>$188 no-deposit free credit (old &amp; new member)</td><td>None &mdash; claim in Promotions</td><td>OTP, then one tap in promotions tab</td><td>Turnover per T&amp;Cs</td><td>PayID / bank</td></tr>
+<tr><td><a href="/mrbluey-188-no-deposit-free-credit-australia-2026">MR BLUEY</a></td><td>$188 no-deposit free credit</td><td>None &mdash; OTP auto</td><td>Usually within a minute of OTP</td><td>Turnover per T&amp;Cs</td><td>PayID / Osko</td></tr>
+<tr><td><a href="/1xace-17777-free-sign-up-no-rollover-australia-2026">1XACE</a></td><td>$177.77 free sign-up (no-rollover winover model)</td><td>None &mdash; OTP auto</td><td>After mobile OTP verification</td><td>Winover, no standard rollover</td><td>PayID / crypto</td></tr>
+<tr><td><a href="/garcat8-free-365-day-bonus-australia-2026">GARCAT8</a></td><td>Daily Easy Step free $100 + free-365-day bonus</td><td>None &mdash; daily task</td><td>Claim after the daily sign-in task</td><td>Per promotion T&amp;Cs</td><td>PayID</td></tr>
+<tr><td><a href="/gd8-social-share-free-credit-australia-2026">GD8</a></td><td>Social-share free credit (plus 100% welcome match)</td><td>None &mdash; share task</td><td>After the social-share task</td><td>Per promotion T&amp;Cs</td><td>PayID</td></tr>
+</tbody>
+</table>
+</div>
+<p>GD8&rsquo;s headline 100% welcome bonus is a deposit match rather than a no-deposit coupon, so it is not directly comparable to the four registration free-credit offers; its free component is the social-share credit. Because rollover and cashout terms change with each promotion, open the operator&rsquo;s dedicated page (linked above) and read the active terms before accepting. Our broader <a href="/no-deposit-free-bonus-guide-australia-2026">no-deposit bonus guide</a> walks through the claim process end to end.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">How codes work</span><h2>What a No-Deposit Bonus Code Actually Is</h2></div>
+<p>A <strong>no-deposit bonus code</strong> (also called a coupon, promo code or voucher) is a short string &mdash; commonly a brand word joined to a number or a free-chip amount &mdash; that tells the casino which promotion to attach to your new account. The classic flow is: register, type the code in the registration or cashier field, and a fixed amount of bonus cash (for example a free chip) or a batch of free spins is released. Search terms such as <em>&ldquo;no deposit bonus codes Australia&rdquo;</em>, <em>&ldquo;free pokies coupon&rdquo;</em> and <em>&ldquo;free chip code keep what you win&rdquo;</em> all describe the same mechanism.</p>
+<p>There are four flavours you will encounter:</p>
+<ul>
+<li><strong>Free-chip codes</strong> &mdash; a fixed dollar amount of bonus cash, usually A$10 to A$60, playable across a range of eligible pokies.</li>
+<li><strong>Free-spins codes</strong> &mdash; a set number of spins on one specific pokie at a fixed stake; wagering then applies to what the spins win.</li>
+<li><strong>Free-play / timed credits</strong> &mdash; a larger bonus balance with a short window (often 60 minutes), with only winnings above the starting amount eligible to withdraw.</li>
+<li><strong>Cashback and no-wagering codes</strong> &mdash; rarer, lower-headline offers that return a percentage of losses or remove playthrough entirely; these are often the best value, as explained in our <a href="/no-wagering-bonuses-australia-2026">no-wagering bonuses guide</a>.</li>
+</ul>
+<p>Whichever the type, the code is only the key that opens the offer &mdash; it does not change the rules attached to the money behind it.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">Why codes fail</span><h2>Why Most Free Pokies Codes You Find Don&rsquo;t Work</h2></div>
+<p>The web is full of pages claiming &ldquo;working&rdquo; Australian no-deposit codes, and the majority do nothing when you enter them. There are five predictable reasons, and knowing them saves you from chasing dead coupons:</p>
+<ol>
+<li><strong>Expiry.</strong> Free coupons are short-lived marketing tools. A code listed on an aggregator page is often weeks or months old and was never updated when the promotion ended.</li>
+<li><strong>Country restriction.</strong> Many codes are valid only for named regions; a coupon aimed at Canada, Germany or South Africa will be rejected for an Australian account even if the site accepts AU players.</li>
+<li><strong>One-time use per identity.</strong> Registration codes are limited to one new player per email, mobile number, household, payment method and IP address. If anyone on your connection has claimed it, it will fail for you.</li>
+<li><strong>It is really a deposit code.</strong> Aggregators frequently label deposit-match coupons as &ldquo;no deposit&rdquo;. If the cashier asks you to fund the account before the bonus unlocks, it is not a no-deposit offer.</li>
+<li><strong>Typing and case errors.</strong> Codes are case-sensitive and must be entered with no spaces; a single wrong character returns &ldquo;invalid code&rdquo;.</li>
+</ol>
+<p>This is precisely why the code-free, automatic-credit model used by the operators in the table above is more reliable for Australians: there is no coupon to expire and no field to mistype &mdash; verifying your Australian mobile number is the only trigger. Our <a href="/free-chips-australia-guide-2026">free chips guide</a> shows how to compare a genuine free-chip offer against the expired-coupon noise.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">The fine print</span><h2>The Five Terms Behind Every No-Deposit Code</h2></div>
+<p>Before you type any coupon &mdash; or claim an automatic sign-up credit &mdash; read these five clauses. They decide whether the bonus can ever become cash, and they are where weak offers hide.</p>
+<p><strong>1. Wagering (playthrough).</strong> The total you must bet before bonus funds convert to cash, expressed as a multiple such as 30x, 40x or 50x. Check whether it applies to the bonus only or to bonus plus deposit; on a true no-deposit offer it is normally the bonus amount only.</p>
+<p><strong>2. Maximum cashout.</strong> No-deposit winnings are almost always capped, commonly around A$50 to A$200 on a small free chip. Anything above the cap is forfeited at withdrawal, no matter how much you win.</p>
+<p><strong>3. Expiry.</strong> Free chips and spins expire fast &mdash; 24 to 72 hours is typical, occasionally up to seven days &mdash; and unfinished wagering means the whole bonus is removed.</p>
+<p><strong>4. Eligible games and weighting.</strong> Pokies usually contribute 100%, but specific titles may be excluded while progressives, table games and video poker often count 10% or zero. Betting on an excluded game can void the bonus.</p>
+<p><strong>5. One bonus per player and KYC.</strong> Duplicate accounts are treated as fraud and balances are confiscated; every real withdrawal requires identity verification and a payment method in your own name. Our plain-English breakdown of each clause is on the <a href="/how-to-read-casino-bonus-terms-australia-2026">casino bonus terms page</a>.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">The maths</span><h2>Wagering Maths: What a Free Chip Really Costs to Clear</h2>
+<p>Players consistently underestimate playthrough. On a free A$50 chip, using the bonus amount as the base:</p>
+<ul>
+<li><strong>30x wagering</strong> = 50 &times; 30 = <strong>A$1,500</strong> of total bets</li>
+<li><strong>40x wagering</strong> = 50 &times; 40 = <strong>A$2,000</strong></li>
+<li><strong>50x wagering</strong> = 50 &times; 50 = <strong>A$2,500</strong></li>
+</ul>
+<p>Every eligible spin reduces that total whether it wins or loses, but the house edge works against you while you clear it. On a 96% RTP pokie the expected loss over A$2,000 of turnover is roughly A$80 &mdash; more than the A$50 chip &mdash; which is why many players finish playthrough with little or nothing left. The practical lesson is to clear wagering on eligible <a href="/best-high-rtp-pokies-australia-2026">high-RTP pokies</a> at sustainable stakes, and to favour no-wagering or low-rollover offers where available. Free-spins coupons change the maths because wagering applies to the spins&rsquo; winnings rather than a fixed chip, so a small spin result means a smaller turnover target.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">How to redeem</span><h2>How to Redeem a No-Deposit Code (and What to Do With No Code)</h2></div>
+<ol>
+<li><strong>Pick a licensed operator.</strong> Confirm the site holds a verifiable Gaming Curacao licence and that the offer is open to Australian accounts.</li>
+<li><strong>Register accurately.</strong> Use your real name, an Australian mobile number and an email you control; the name must match your PayID bank account or withdrawals will fail.</li>
+<li><strong>Verify your mobile by OTP.</strong> On the code-free operators reviewed here, this single step is what releases the sign-up credit &mdash; no coupon is required.</li>
+<li><strong>Enter the code only if one is shown.</strong> If the registration or promotions page displays a coupon field, type the exact code with no spaces; if there is no field, the offer is automatic and hunting for a third-party code will not add anything.</li>
+<li><strong>Claim from the promotions tab if needed.</strong> Some brands (for example 1XAUD) require one tap on the &ldquo;Old &amp; New Member&rdquo; offer after OTP; others credit instantly.</li>
+<li><strong>Open an eligible pokie.</strong> Confirm the free balance is available before you spin; popular eligible Australian titles include <a href="/wolf-treasure-pokies-australia-2026">Wolf Treasure</a>, 5 Dragons and Gates of Olympus.</li>
+<li><strong>Clear wagering before expiry</strong>, then complete KYC and <strong>withdraw to PayID</strong> up to the max-cashout cap.</li>
+</ol>
+<p>If an automatic credit does not appear within a minute, open 24/7 live chat with your registered number &mdash; do not create a second account, which will disqualify you. The full sequence, including screenshots of where each step lives, is in our <a href="/free-50-pokies-no-deposit-sign-up-bonus-australia-2026">free $50 sign-up bonus walkthrough</a>.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">Scams</span><h2>Real Codes vs Fake &ldquo;Free Coupon&rdquo; Scams</h2></div>
+<p>Because no-deposit codes are searched so heavily, they are also a common lure. Treat the following as red flags: a page that lists dozens of &ldquo;guaranteed&rdquo; codes for casinos with no discoverable licence; a site that asks you to pay a &ldquo;release fee&rdquo; or &ldquo;tax&rdquo; before paying bonus winnings (legitimate casinos never do this); promises of uncapped, zero-verification, instant withdrawals; and copycat branding that mimics a well-known operator. A genuine offer never asks you to send money to receive money.</p>
+<p>The safest pattern for Australian players is boring but effective: choose a licensed operator, verify your mobile, let the credit arrive automatically (no code to get wrong), read the five terms above, and withdraw through PayID in your own name. You can verify any operator&rsquo;s licence yourself using our <a href="/curacao-casino-licence-check-australia-2026">Curacao licence check guide</a>, and our <a href="/online-pokies-legality-australia-2026">Australian legality guide</a> explains what the Interactive Gambling Act does and does not allow.</p>
+</section>
+
+<section class="section">
+<div class="section-title"><span class="section-title__label">Cashing out</span><h2>Turning Coupon Winnings Into PayID Cash</h2></div>
+<p>Once wagering is complete and KYC is approved, the fastest route from bonus balance to Australian bank account is <strong>PayID</strong> (often shown as Osko in your banking app). The PayID rail settles in near-real time, 24/7; the wait players actually experience is the casino&rsquo;s internal finance review, which ranges from near-instant at the fastest brands to 24&ndash;72 hours elsewhere. No-deposit payouts are always limited to the max-cashout cap, and a few operators require one small real-money deposit first to confirm the payment method &mdash; a standard anti-fraud step, not a trick.</p>
+<p>Two things hold up almost every first no-deposit withdrawal: unfinished KYC and a name mismatch between the casino account and the PayID bank account. Verify your identity immediately after registering and always cash out to PayID details in your own name. Our <a href="/payid-cashouts-australia-2026">PayID cashouts hub</a> records bank-by-bank settlement times, and the <a href="/same-day-pokies-withdrawals-australia">same-day withdrawal rankings</a> list the fastest-paying brands. Mobile players can complete the entire claim-and-cashout flow in a phone browser &mdash; see the <a href="/mobile-pokies-australia-2026">mobile pokies guide</a>.</p>
+</section>
+'''
+body += faq_section(faq)
+body += related([
+ ("/free-50-pokies-no-deposit-sign-up-bonus-australia-2026","Bonus Guides","Free $50 Pokies No Deposit Sign-Up Bonus","How the A$50 free chip works and its real cashout terms.","/blog%20banner/blogpost%2012.webp","1376","768","2026-09-21","6"),
+ ("/no-deposit-free-bonus-guide-australia-2026","Bonus Guides","No Deposit Free Bonus Guide Australia 2026","The full claim process and how to avoid expired offers.","/blog%20banner/blogpost%203.webp","1168","784","2026-08-03","5"),
+ ("/free-chips-australia-guide-2026","Bonus Guides","Free Chips Australia 2026 — No-Deposit Guide","Free chips vs free spins, with wagering and cap comparisons.","/blog%20banner/blogpost%202.webp","1168","784","2026-07-12","5"),
+ ("/wolf-treasure-pokies-australia-2026","Top Pokies","Wolf Treasure Pokies Australia 2026","The pokie most free-spins coupons are attached to.","/blog%20banner/for%20blogpost%201%20and%206.webp","1168","784","2026-09-21","5"),
+])
+
+html = head(slug, title, desc, bc, faq) + body + FOOTER
+out = os.path.join(PUB, slug + ".html")
+with open(out, "w", encoding="utf-8") as f:
+    f.write(html)
+print("WROTE", slug + ".html", len(html), "bytes")
