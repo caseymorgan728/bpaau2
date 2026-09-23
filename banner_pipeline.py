@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import json, sys, urllib.request, os, io
+import json, sys, urllib.request, os, io, re
 
 BASE = r"C:\Users\User\Documents\GitHub\bpaau2\public"
 BAN = os.path.join(BASE, "assets", "banners")
@@ -33,7 +33,7 @@ for it in items:
     bname = slug + "-banner." + ext
     with open(os.path.join(BAN, bname), "wb") as f:
         f.write(data)
-    hp = os.path.join(BASE, slug + ".html")
+    hp = os.path.join(BASE, it.get("file", slug + ".html"))
     s = io.open(hp, encoding="utf-8").read()
     if 'class="page-banner"' in s:
         print("skip (exists):", slug)
@@ -41,9 +41,10 @@ for it in items:
     fig = ('<figure class="page-banner"><img src="/assets/banners/%s" alt="%s" '
            'width="%d" height="%d" loading="eager" decoding="async" fetchpriority="high"/></figure>\n'
            % (bname, alt, w, h))
-    i = s.find("<h1>")
-    if i < 0:
+    m = re.search(r"<h1[\s>]", s)
+    if not m:
         print("NO H1:", slug); continue
+    i = m.start()
     s = s[:i] + fig + s[i:]
     io.open(hp, "w", encoding="utf-8").write(s)
     print("wired:", slug, w, h, len(data))
